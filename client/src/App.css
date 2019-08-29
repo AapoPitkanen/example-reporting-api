@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+
+body {
+    font-size: 100%;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.page-list-item {
+    cursor: pointer;
+}
+
+.page-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-link {
+    background-color: #454d55;
+    color: #fff;
+    transition: background-color 200ms ease;
+    border: 0;
+}
+
+.page-link:hover {
+    background-color: #5c6670;
+    color: #fff;
+}
+
+.react-datepicker__input-container input {
+    cursor: pointer;
+}
+
+.start-date,
+.end-date {
+    color: #454d55;
+    padding: 4px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border 250ms ease, box-shadow 250ms ease;
+}
+
+.start-date:hover,
+.end-date:hover {
+    border: 1px solid #2684ff;
+    box-shadow: 0 0 4px -1px #2684ff;
+}
+
+.datepicker-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.datepicker-wrapper span {
+    font-size: 0.75rem;
+    padding-left: 0.25rem;
+    color: #777;
+}
+
+.date-direction-selector {
+    cursor: pointer;
+}
+
+.date-icon {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+}
+
+.page-link:first-child {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 2.5rem;
+    border-radius: 6px 0 0 6px;
+}
+
+.page-link:last-child {
+    display: flex;
+    justify-content: flex-start;
+    min-width: 2.5rem;
+    border-radius: 0 6px 6px 0;
+}
+
+.datepicker-selectors {
+    display: flex;
+}
+
+.global-wrapper {
+    margin: 2rem;
+}
+
+.table-wrapper {
+    min-height: 20rem;
+}
+
+.table {
+    border-radius: 6px;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+}
+
+.table th,
+.table td {
+    border-bottom: 1px solid #666;
+    border-top: 0;
+    max-width: 0;
+}
+
+.table th {
+    font-weight: normal;
+}
+
+.table tr:last-child td {
+    border: 0;
+}
+
+.total-statistics-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2rem;
+}
+
+.statistics-card {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    color: #fff;
+    background-color: #343a40;
+    padding: 4rem 2rem;
+    box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+
+.statistics-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.pagination .selected {
+    background-color: #f4f4f4;
+    color: #343a40;
+}
+
+.statistics-header-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.statistics-header {
+    font-size: 3rem;
+}
+
+.date-down,
+.date-up {
+    padding-left: 0.5rem;
+    position: relative;
+    top: -1px;
+}
