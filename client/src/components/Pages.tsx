@@ -6,7 +6,7 @@ interface PageProps {
     handlePagination: Function;
 }
 
-export const Pages: React.FC<PageProps> = ({
+const Pages: React.FC<PageProps> = ({
     currentPage,
     pageNumbers,
     handlePagination,
@@ -29,3 +29,5 @@ export const Pages: React.FC<PageProps> = ({
         </div>
     );
 };
+
+export default Pages;

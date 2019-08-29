@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import DatePicker from "react-datepicker";
-import { Pages } from "./components/Pages";
-import { useSpring, animated } from "react-spring";
-
-interface IMappedDayStatistics {
-    conversation_count: number;
-    missed_chat_count: number;
-    visitors_with_conversation_count: number;
-    date: Date;
-}
-
-interface ITotalStatistics {
-    total_conversation_count: number;
-    total_user_message_count: number;
-    total_visitor_message_count: number;
-}
+import Pages from "./components/Pages";
+import DailyStatisticTable from "./components/DailyStatisticTable";
+import TotalStatistics from "./components/TotalStatistics";
+import DatePickers from "./components/DatePickers";
+import { useSpring } from "react-spring";
+import {
+    IMappedDayStatistics,
+    ITotalStatistics,
+} from "./interfaces/interfaces";
 
 const App: React.FC = () => {
     const [dailyStats, setDailyStats] = useState<IMappedDayStatistics[]>([]);
@@ -77,12 +70,11 @@ const App: React.FC = () => {
         lastIndex
     );
 
-    const pageNumbers: number[] = [];
     const totalPages = Math.ceil(dailyStats.length / resultsPerPage);
 
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-    }
+    const pageNumbers: number[] = [...Array(totalPages).keys()].map(
+        num => num + 1
+    );
 
     const totalConversationCount = useSpring({
         number: totalStatistics.total_conversation_count,
@@ -106,6 +98,10 @@ const App: React.FC = () => {
     });
 
     const handlePagination = (pageNumber: number) => setCurrentPage(pageNumber);
+    const handleDirectionChange = (descendingDirection: boolean) =>
+        setDescendingDirection(descendingDirection);
+    const handleSetStartDate = (date: Date) => setStartDate(date);
+    const handleSetEndDate = (date: Date) => setEndDate(date);
 
     return (
         <div className="global-wrapper">
@@ -114,103 +110,22 @@ const App: React.FC = () => {
                     Reporting dashboard
                 </header>
             </div>
-
-            <div className="datepicker-selectors">
-                <div className="datepicker-wrapper">
-                    <span>Start date</span>
-                    <DatePicker
-                        className="start-date"
-                        selected={startDate}
-                        onChange={(date: Date) => setStartDate(date)}
-                        dateFormat="dd.MM.yyyy"
-                    />
-                    <i className="date-icon far fa-calendar-alt"></i>
-                </div>
-                <div className="datepicker-wrapper">
-                    <span>End date</span>
-                    <DatePicker
-                        className="end-date"
-                        selected={endDate}
-                        onChange={(date: Date) => setEndDate(date)}
-                        dateFormat="dd.MM.yyyy"
-                    />
-                    <i className="date-icon far fa-calendar-alt"></i>
-                </div>
-            </div>
-            <div className="total-statistics-wrapper">
-                <div className="statistics-card total-conversation-count">
-                    <animated.span className="statistics-number">
-                        {totalConversationCount.number.interpolate(number =>
-                            Math.floor(number)
-                        )}
-                    </animated.span>
-                    <span>Total conversation count</span>
-                </div>
-                <div className="statistics-card total-user-message-count">
-                    <animated.span className="statistics-number">
-                        {totalUserMessageCount.number.interpolate(number =>
-                            Math.floor(number)
-                        )}
-                    </animated.span>
-                    <span>Total user message count</span>
-                </div>
-                <div className="statistics-card total-visitor-message-count">
-                    <animated.span className="statistics-number">
-                        {totalVisitorMessageCount.number.interpolate(number =>
-                            Math.floor(number)
-                        )}
-                    </animated.span>
-                    <span>Total visitor message count</span>
-                </div>
-            </div>
-            <div className="table-wrapper">
-                <table className="table table-dark">
-                    <tbody>
-                        <tr>
-                            <th scope="col">Conversation count</th>
-                            <th scope="col">Missed chat count</th>
-                            <th scope="col">
-                                Visitors with conversation count
-                            </th>
-                            <th
-                                scope="col"
-                                className="date-direction-selector"
-                                onClick={() =>
-                                    setDescendingDirection(!descendingDirection)
-                                }
-                            >
-                                Date
-                                {descendingDirection ? (
-                                    <span className="date-down">&#8595;</span>
-                                ) : (
-                                    <span className="date-up">&#8593;</span>
-                                )}
-                            </th>
-                        </tr>
-                        {currentDailyStats
-                            .sort(
-                                (
-                                    a: IMappedDayStatistics,
-                                    b: IMappedDayStatistics
-                                ) => {
-                                    return descendingDirection
-                                        ? b.date.getTime() - a.date.getTime()
-                                        : a.date.getTime() - b.date.getTime();
-                                }
-                            )
-                            .map((day: IMappedDayStatistics) => (
-                                <tr key={day.date.toDateString()}>
-                                    <td>{day.conversation_count}</td>
-                                    <td>{day.missed_chat_count}</td>
-                                    <td>
-                                        {day.visitors_with_conversation_count}
-                                    </td>
-                                    <td>{day.date.toDateString()}</td>
-                                </tr>
-                            ))}
-                    </tbody>
-                </table>
-            </div>
+            <DatePickers
+                setStartDate={handleSetStartDate}
+                setEndDate={handleSetEndDate}
+                startDate={startDate}
+                endDate={endDate}
+            ></DatePickers>
+            <TotalStatistics
+                totalConversationCount={totalConversationCount}
+                totalUserMessageCount={totalUserMessageCount}
+                totalVisitorMessageCount={totalVisitorMessageCount}
+            ></TotalStatistics>
+            <DailyStatisticTable
+                descendingDirection={descendingDirection}
+                setDescendingDirection={handleDirectionChange}
+                currentDailyStats={currentDailyStats}
+            ></DailyStatisticTable>
             {pageNumbers.length >= 2 && (
                 <Pages
                     currentPage={currentPage}
