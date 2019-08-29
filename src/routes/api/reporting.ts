@@ -29,6 +29,17 @@ router.get(
         const end_date: Date = new Date(req.query.end_date);
 
         const data: any = Cache.get("data");
+
+        if (!data) {
+            const total_statistics: ITotalStatistics = {
+                total_conversation_count: 0,
+                total_user_message_count: 0,
+                total_visitor_message_count: 0,
+            };
+            res.send(total_statistics);
+            return;
+        }
+
         const data_by_date: IDayStatisticsDate[] = data.by_date.map(
             (day: IDayStatistics) => {
                 day.date = new Date(day.date);
@@ -77,6 +88,16 @@ router.get(
         const end_date = new Date(req.query.end_date);
 
         const data: any = Cache.get("data");
+
+        if (!data) {
+            const results: IDailyStatisticResults = {
+                current_page: undefined,
+                total_pages: 1,
+                results: [],
+            };
+            res.send(results);
+            return;
+        }
 
         const data_by_date = data.by_date.map((day: any) => {
             day.date = new Date(day.date);

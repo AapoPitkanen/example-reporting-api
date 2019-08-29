@@ -19,7 +19,11 @@ export const Cache: NodeCache = new NodeCache();
             const data: object = res.data;
             Cache.set("data", data);
         })
-        .catch(err => console.log(err));
+        .catch(err =>
+            console.log(
+                `Error occurred on data fetching with code ${err.response.status} ${err.response.statusText}`
+            )
+        );
 
     const app = new Server();
     app.startServer();

@@ -49,7 +49,8 @@ const App: React.FC = () => {
                     );
 
                 setDailyStats(mapped_results);
-            });
+            })
+            .catch(err => console.log(err));
 
         axios
             .get(
@@ -58,7 +59,8 @@ const App: React.FC = () => {
             .then(response => {
                 const { data } = response;
                 setTotalStatistics(data);
-            });
+            })
+            .catch(err => console.log(err));
 
         setCurrentPage(1);
     }, [startDate, endDate]);
