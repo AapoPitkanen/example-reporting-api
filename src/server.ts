@@ -1,6 +1,8 @@
 import Express from "express";
 import router from "./routes/api/reporting";
+import applicationRouter from "./routes/application";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -21,9 +23,18 @@ export class Server {
     private setConfig() {
         this.app.use(Express.json());
         this.app.use(Express.urlencoded({ extended: false }));
+        this.app.use(
+            Express.static(
+                path.join(
+                    __dirname.slice(0, __dirname.indexOf("src")),
+                    "/client/build"
+                )
+            )
+        );
     }
 
     private initializeRoutes() {
         this.app.use("/api/reporting", router);
+        this.app.use("/", applicationRouter);
     }
 }

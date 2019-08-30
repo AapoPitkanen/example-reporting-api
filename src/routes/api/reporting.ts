@@ -1,10 +1,4 @@
-import express, {
-    Router,
-    Application,
-    Request,
-    Response,
-    NextFunction,
-} from "express";
+import express, { Router, Request, Response } from "express";
 import dotenv from "dotenv";
 import { Cache } from "../../app";
 import { validateQueryParams } from "../middleware/validateQueryParams";
