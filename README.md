@@ -5,7 +5,7 @@ The front-end is built with TypeScript and modern React with React hooks and onl
 
 To clone the repository, open your terminal and use the command `git clone https://github.com/AapoPitkanen/example-reporting-api.git`. 
 
-After cloning the repo, run `npm install` to get all the project dependencies. 
+After cloning the repo, run `npm install` to get all the project dependencies. Also run the command `cd client && npm install` to get all the front-end client dependencies.
 
 **Important!** You need a giosg personal access token to actually fetch the data from the giosg servers, 
 otherwise you will not get any reporting data from the giosg API. 
