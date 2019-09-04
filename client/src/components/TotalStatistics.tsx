@@ -15,26 +15,26 @@ const TotalStatistics: React.FC<TotalStatisticsProps> = ({
 }) => {
     return (
         <div className="total-statistics-wrapper">
-            <div className="statistics-card total-conversation-count">
+            <div className="statistics-card statistics-card--green total-conversation-count">
                 <animated.span className="statistics-number">
-                    {totalConversationCount.number.interpolate(
-                        (number: number) => Math.floor(number)
+                    {totalConversationCount.number.interpolate((num: number) =>
+                        Math.floor(num)
                     )}
                 </animated.span>
                 <span>Total conversation count</span>
             </div>
-            <div className="statistics-card total-user-message-count">
+            <div className="statistics-card statistics-card--blue total-user-message-count">
                 <animated.span className="statistics-number">
-                    {totalUserMessageCount.number.interpolate(
-                        (number: number) => Math.floor(number)
+                    {totalUserMessageCount.number.interpolate((num: number) =>
+                        Math.floor(num)
                     )}
                 </animated.span>
                 <span>Total user message count</span>
             </div>
-            <div className="statistics-card total-visitor-message-count">
+            <div className="statistics-card statistics-card--red total-visitor-message-count">
                 <animated.span className="statistics-number">
                     {totalVisitorMessageCount.number.interpolate(
-                        (number: number) => Math.floor(number)
+                        (num: number) => Math.floor(num)
                     )}
                 </animated.span>
                 <span>Total visitor message count</span>

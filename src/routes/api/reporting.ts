@@ -65,9 +65,10 @@ router.get(
         );
 
         const total_statistics: ITotalStatistics = {
-            total_conversation_count: aggregated_data.conversation_count,
-            total_user_message_count: aggregated_data.user_message_count,
-            total_visitor_message_count: aggregated_data.visitor_message_count,
+            total_conversation_count: aggregated_data.conversation_count || 0,
+            total_user_message_count: aggregated_data.user_message_count || 0,
+            total_visitor_message_count:
+                aggregated_data.visitor_message_count || 0,
         };
 
         res.send(total_statistics);
