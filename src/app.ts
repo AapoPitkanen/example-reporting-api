@@ -7,8 +7,7 @@ const headers = {
     Authorization: `token ${process.env.GIOSG_ACCESS_TOKEN}`,
 };
 
-const giosgReportingURL =
-    "https://api.giosg.com/api/reporting/v1/rooms/84e0fefa-5675-11e7-a349-00163efdd8db/chat-stats/daily/?start_date=2017-05-01&end_date=2017-06-15";
+const giosgReportingURL = process.env.GIOSG_REPORTING_URL;
 
 export const Cache: NodeCache = new NodeCache();
 
